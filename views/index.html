@@ -1,0 +1,6 @@
+<body>
+{{ range $key, $user := .Users }}
+    <li>{{ $user.Name }} :: {{ $user.DisplayName }} :: {{ $user.Enabled }}</li>
+{{ end }}
+<a href="/add">Add user</a>
+</body>
