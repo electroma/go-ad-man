@@ -1,7 +1,7 @@
-<form method="POST">
-    <div>{{ .Message }}</div>
-    <input name="Name"  value="{{ .Name }}" />
-    <input name="Pass" type="password" />
-    <input type="submit" value="Login" />
-    <input type="reset" value="Reset" />
+<form method="POST" class="pure-form">
+    <h3>Login to AD</h3>
+    <label for="Name">Name:</label><input id="Name" name="Name"  value="{{ .Name }}" />
+    <label for="Pass">Password:</label><input id="Pass" name="Pass" type="password" />
+    <input type="submit" value="Login" class="pure-button pure-button-primary" />
+    <input type="reset" value="Reset" class="pure-button" />
 </form>

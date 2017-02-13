@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"github.com/electroma/ad-manager/logic"
+	"github.com/electroma/go-ad-man/logic"
 	"github.com/kataras/iris"
 )
 

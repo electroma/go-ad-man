@@ -2,7 +2,7 @@ package controller
 
 import (
 	"github.com/kataras/iris"
-	"github.com/electroma/ad-manager/logic"
+	"github.com/electroma/go-ad-man/logic"
 )
 
 const USER_VAR = "user"
@@ -35,5 +35,6 @@ func PostLogin(ctx *iris.Context) {
 }
 
 func login(user, pass string) error {
-	return logic.LoginToRemoteAd("172.20.0.149", "CN=Users,DC=corp,DC=riglet,DC=io", "CN="+user+",CN=Users,DC=corp,DC=riglet,DC=io", pass)
+	b := "CN=Users,DC=corp,DC=riglet,DC=io"
+	return logic.LoginToRemoteAd("CN="+user+"," + b, pass)
 }

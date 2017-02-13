@@ -3,16 +3,28 @@ package logic
 import (
 	"github.com/paleg/libadclient"
 	"github.com/Sirupsen/logrus"
+	"github.com/kataras/go-errors"
 )
 
 type remoteAdWrapper struct {
 }
 
-func LoginToRemoteAd(hostName string, userSearchBase string, bindDn string, bindPass string) (err error) {
+var Base, DCHost string
+
+func LoginToRemoteAd(bindDn string, bindPass string) (err error) {
+	if len(DCHost) == 0 {
+		return errors.New("Please specify DC host first")
+	}
+
+	if len(Base) == 0 {
+		return errors.New("Please specify base-DN first")
+	}
+
+
 	adclient.New()
 	params := adclient.DefaultADConnParams()
-	params.Uries = append(params.Uries, adclient.LdapPrefix()+hostName)
-	params.Search_base = userSearchBase
+	params.Uries = append(params.Uries, adclient.LdapPrefix()+DCHost)
+	params.Search_base = Base
 	params.Binddn = bindDn;
 	params.Bindpw = bindPass;
 	params.Secured = false;

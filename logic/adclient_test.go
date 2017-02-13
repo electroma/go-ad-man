@@ -3,20 +3,24 @@ package logic
 import (
 	"testing"
 	"github.com/stretchr/testify/assert"
+	log "github.com/Sirupsen/logrus"
 )
 
-func TestWithRealAd(t *testing.T) {
+func ExampleWithRealAd() {
 	const userName = "testUser123"
 
-	if err := LoginToRemoteAd("172.20.0.149", "CN=Users,DC=corp,DC=riglet,DC=io", "CN=Administrator,CN=Users,DC=corp,DC=riglet,DC=io", "XXX"); err != nil {
-		t.Errorf("Failed to login %v", err)
+	DCHost = "172.20.0.149"
+	Base = "CN=Users,DC=corp,DC=riglet,DC=io"
+
+	if err := LoginToRemoteAd("CN=Administrator,CN=Users,DC=corp,DC=riglet,DC=io", "XXX"); err != nil {
+		log.Errorf("Failed to login %v", err)
 	}
 	users1, getErr := GetUsers()
 
 	if getErr != nil {
-		t.Errorf("Failed to get users %v", getErr)
+		log.Errorf("Failed to get users %v", getErr)
 	}
-	t.Log(users1)
+	log.Infoln(users1)
 
 	if _, ok := users1[userName]; ok {
 		DeleteUser(userName)
@@ -24,18 +28,18 @@ func TestWithRealAd(t *testing.T) {
 
 	info := UserInfo{Name: userName, DisplayName: "Test User", Enabled: true}
 	if err := CreateUser(info); err != nil {
-		t.Errorf("Failed to create enabled user")
+		log.Errorf("Failed to create enabled user")
 	}
 	users2, err := GetUsers();
 	if err != nil {
-		t.Errorf("Failed to get users %v", err)
+		log.Errorf("Failed to get users %v", err)
 	}
 	if users2[userName] != info {
-		t.Errorf("User does not match %v", users2[userName])
+		log.Errorf("User does not match %v", users2[userName])
 	}
 
 	if err := DeleteUser(userName); err != nil {
-		t.Errorf("Failed to delete user %v", err)
+		log.Errorf("Failed to delete user %v", err)
 	}
 }
 

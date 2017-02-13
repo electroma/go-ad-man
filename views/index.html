@@ -1,6 +1,25 @@
-<body>
-{{ range $key, $user := .Users }}
-    <li>{{ $user.Name }} :: {{ $user.DisplayName }} :: {{ $user.Enabled }}</li>
-{{ end }}
-<a href="/add">Add user</a>
-</body>
+<table class="pure-table pure-table-horizontal">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Display Name</th>
+        <th>Enabled</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{ range $key, $user := .Users }}
+    <tr>
+        <td>{{ $user.Name }}</td><td>{{ $user.DisplayName }}</td><td>{{ if $user.Enabled }} &#x2713; {{ end }}</td>
+        <td><a href="delete/{{ $user.Name }}" class="button-error pure-button">Delete</a></td>
+    </tr>
+    {{ end }}
+    </tbody>
+    <tfoot>
+    <tr>
+        <th colspan="4">
+            <a href="/add" class="pure-button-primary pure-button">Add new user</a>
+        </th>
+    </tr>
+    </tfoot>
+</table>
