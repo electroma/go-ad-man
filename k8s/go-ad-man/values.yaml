@@ -1,0 +1,26 @@
+# Default values for go-ad-man.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+image:
+  repository: builditdigital/go-ad-man
+  tag: latest
+  pullPolicy: Always
+service:
+  name: go-ad-man
+  type: ClusterIP
+  externalPort: 80
+  internalPort: 6111
+  hostName:
+resources:
+  limits:
+    cpu: 200m
+    memory: 96Mi
+  requests:
+    cpu: 50m
+    memory: 48Mi
+app:
+  # Specify domain controller host name/IP
+  dcUrl:
+  # Base DN to search users in (i.e. "CN=Users,DC=your,DC=domain")
+  baseDn:
