@@ -1,5 +1,5 @@
 node_modules
-go-ad-man
+/go-ad-man
 main
 test/acceptance/*.png
 build/tmp
