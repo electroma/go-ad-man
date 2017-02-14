@@ -24,8 +24,10 @@ func main() {
 
 	// naive auth middleware
 	iris.UseFunc(func(ctx *iris.Context) {
+		logrus.Infoln("Aaa", ctx.Path())
 		if ctx.Path() == "/login" {
 			ctx.Next()
+			return
 		}
 
 		if ctx.Session().Get(controller.USER_VAR) == nil {
