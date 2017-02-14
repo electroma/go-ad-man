@@ -1,0 +1,16 @@
+image:
+  pullPolicy: IfNotPresent
+  repository: builditdigital/go-ad-man
+service:
+  hostName: ad-man-test.kube.local
+app:
+  dcUrl: ad-man-test-samba-ad-dc
+  baseDn: "CN=Users,DC=test,DC=ad,DC=dc"
+
+samba-ad-dc:
+  enabled: true
+  persistence:
+    enabled: false
+  ad:
+   realm: test.ad.dc
+   password: TestMe123

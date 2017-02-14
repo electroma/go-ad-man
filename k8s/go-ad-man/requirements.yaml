@@ -1,0 +1,4 @@
+dependencies:
+      - name: samba-ad-dc
+        version: 0.1.0
+        condition: samba-ad-dc.enabled

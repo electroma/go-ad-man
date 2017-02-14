@@ -1,0 +1,56 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: 389
+          name: ldap
+        - containerPort: 53
+          name: dns
+        livenessProbe:
+          tcpSocket:
+            port: dns
+          timeoutSeconds: 10
+          initialDelaySeconds: 40
+        readinessProbe:
+          tcpSocket:
+            port: dns
+          initialDelaySeconds: 40
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/samba
+        env:
+        - name: SAMBA_REALM
+          value: {{ .Values.ad.realm }}
+        - name: SAMBA_PASSWORD
+          value: {{ .Values.ad.password }}
+        - name: SAMBA_PASSWORD
+          value: {{ .Values.ad.password }}
+        {{- if not .Values.ad.strictTls }}
+        - name: SAMBA_NO_TLS
+          value: "yes"
+        {{- end }}
+        resources:
+{{ toYaml .Values.resources | indent 12 }}
+      volumes:
+      - name: data
+      {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ template "fullname" . }}
+      {{- else }}
+        emptyDir: {}
+      {{- end -}}
+

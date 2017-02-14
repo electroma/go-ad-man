@@ -2,7 +2,7 @@ all: push
 
 BUILDTAGS=
 
-RELEASE?=0.1.0
+RELEASE?=0.1.1
 PREFIX?=builditdigital/go-ad-man
 GOOS?=linux
 
@@ -24,8 +24,10 @@ container: build package
 package:
 	docker build --pull -t $(PREFIX):$(RELEASE) .
 
-push: container
+push: package
 	docker push $(PREFIX):$(RELEASE)
+	docker tag $(PREFIX):$(RELEASE) $(PREFIX):latest
+	docker push $(PREFIX):latest
 
 fmt:
 	@echo "+ $@"

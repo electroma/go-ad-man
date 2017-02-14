@@ -19,5 +19,11 @@ and https://github.com/buildit/digitalrig-docker/tree/master/images/adtool[adtoo
 == Docker-based build (useful on non-Linux hosts)
 
 . Build image `docker build -t builditdigital/go-ad-man-builder build`
-. Run build in builder container ``docker run --rm -ti -v  `pwd`:/go/src/github.com/electroma/go-ad-man -w /go/src/github.com/electroma/go-ad-man builditdigital/go-ad-man-builder bash -c 'go get -v && make build'``
+. Run build in builder container ``docker run --rm -ti -v $GOPATH/src:/go/src -w /go/src/github.com/electroma/go-ad-man builditdigital/go-ad-man-builder bash -c 'go get -v && make build'``
 . Build Docker image `make package`
+
+== Testing
+
+. Deploy test setup with embedded ad-dc `helm install ./k8s/go-ad-man/ -n ad-man-test -f ./k8s/vars_test.yml --set service.hostName=[put ingress hostname here or leave blank if not needed] --set image.tag=[the image you've just built]`
+. Execute test pack `URL=[your ingress url] npm run test`
+. Do cleanup `helm delete --purge ad-man-test`

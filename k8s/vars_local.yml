@@ -1,7 +1,6 @@
 image:
   pullPolicy: IfNotPresent
   repository: builditdigital/go-ad-man
-  tag: 0.1.0
 service:
   hostName: ad-man.kube.local
 app:

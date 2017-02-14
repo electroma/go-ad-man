@@ -11,14 +11,14 @@
     {{ range $key, $user := .Users }}
     <tr>
         <td>{{ $user.Name }}</td><td>{{ $user.DisplayName }}</td><td>{{ if $user.Enabled }} &#x2713; {{ end }}</td>
-        <td><a href="delete/{{ $user.Name }}" class="button-error pure-button">Delete</a></td>
+        <td><a id="del_{{ $user.Name }}" href="delete/{{ $user.Name }}" class="button-error pure-button">Delete</a></td>
     </tr>
     {{ end }}
     </tbody>
     <tfoot>
     <tr>
         <th colspan="4">
-            <a href="/add" class="pure-button-primary pure-button">Add new user</a>
+            <a id="add_user" href="/add" class="pure-button-primary pure-button">Add new user</a>
         </th>
     </tr>
     </tfoot>

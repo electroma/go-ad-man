@@ -35,6 +35,5 @@ func PostLogin(ctx *iris.Context) {
 }
 
 func login(user, pass string) error {
-	b := "CN=Users,DC=corp,DC=riglet,DC=io"
-	return logic.LoginToRemoteAd("CN="+user+"," + b, pass)
+	return logic.LoginToRemoteAd("CN="+user+"," + logic.Base, pass)
 }
