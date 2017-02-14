@@ -1,15 +1,23 @@
 = GO-AD-MAN: Simple web UI for AD user management
 
+Simple web UI to manage users in AD. Used as a lightweight replacement to Windows box.
+
+Together with https://github.com/buildit/digitalrig-docker/tree/master/images/samba-ad-dc[samba-ad-dc]
+and https://github.com/buildit/digitalrig-docker/tree/master/images/adtool[adtool]
+ provides Active Directory environment good enough to cover many integration testing cases.
+
 == Installation
 
-Bare: `BASE_DN="CN=Users,DC=domain,DC=local" DC_URL="dc-test-host" ./go-ad-man`
-Minikube: `helm install ./k8s/go-ad-man/ -n ad-man -f ./k8s/vars_local.yml`
-EC2: `helm install ./k8s/go-ad-man/ -n ad-man -f ./k8s/vars_ec2.yml`
+*Bare*: `BASE_DN="CN=Users,DC=domain,DC=local" DC_URL="dc-test-host" ./go-ad-man`
+
+*Minikube*: `helm install ./k8s/go-ad-man/ -n ad-man -f ./k8s/vars_local.yml`
+
+*EC2*: `helm install ./k8s/go-ad-man/ -n ad-man -f ./k8s/vars_ec2.yml`
 
 *Note*: Please review var-file before deploying GO-AD-MAN to your k8s cluster.
 
 == Docker-based build (useful on non-Linux hosts)
 
 . Build image `docker build -t builditdigital/go-ad-man-builder build`
-. Run build in builder container ```docker run --rm -ti -v  `pwd`:/go/src/github.com/electroma/go-ad-man -w /go/src/github.com/electroma/go-ad-man builditdigital/go-ad-man-builder bash -c 'go get -v && make build'```
+. Run build in builder container ``docker run --rm -ti -v  `pwd`:/go/src/github.com/electroma/go-ad-man -w /go/src/github.com/electroma/go-ad-man builditdigital/go-ad-man-builder bash -c 'go get -v && make build'``
 . Build Docker image `make package`
