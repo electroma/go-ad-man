@@ -81,3 +81,6 @@ func (_ remoteAdWrapper) GetDisabledUsers() ([]string, error) {
 	return adclient.GetDisabledUsers()
 }
 
+func (_ remoteAdWrapper) SetUserPassword(user string, password string) (err error) {
+	return adclient.SetUserPassword(user, password)
+}

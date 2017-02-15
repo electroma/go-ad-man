@@ -20,7 +20,7 @@ and https://github.com/buildit/digitalrig-docker/tree/master/images/adtool[adtoo
 
 . Build image `docker build -t builditdigital/go-ad-man-builder build`
 . Run build in builder container ``docker run --rm -ti -v $GOPATH/src:/go/src -w /go/src/github.com/electroma/go-ad-man builditdigital/go-ad-man-builder bash -c 'go get -v && make build'``
-. Build Docker image `make package`
+. Build Docker image `make package` or `make push`
 
 == Testing
 

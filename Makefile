@@ -2,7 +2,7 @@ all: push
 
 BUILDTAGS=
 
-RELEASE?=0.1.1
+RELEASE?=0.1.2
 PREFIX?=builditdigital/go-ad-man
 GOOS?=linux
 

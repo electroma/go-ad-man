@@ -8,6 +8,7 @@ import (
 type UserInfo struct {
 	Name        string
 	DisplayName string
+	Password    string
 	Enabled     bool
 }
 
@@ -22,6 +23,7 @@ type AdOprations interface {
 	DeleteDN(dn string) (err error)
 	GetUserDisplayName(name string) (result string, err error)
 	SearchBase() (result string)
+	SetUserPassword(user string, password string) (err error)
 }
 
 var _libad AdOprations
@@ -68,6 +70,9 @@ func CreateUser(info UserInfo) error {
 		return err
 	}
 	if err := _libad.SetUserDisplayName(info.Name, info.DisplayName); err != nil {
+		return err
+	}
+	if err := _libad.SetUserPassword(info.Name, info.Password); err != nil {
 		return err
 	}
 	if (info.Enabled) {

@@ -17,7 +17,6 @@ func (m mockAD) EnableUser(user string) (err error) {
 	return m.Called(user).Error(0)
 }
 
-
 func (m mockAD) SetUserDisplayName(user string, displayName string) (err error) {
 	return m.Called(user, displayName).Error(0)
 }
@@ -51,4 +50,8 @@ func (m mockAD) GetUserDisplayName(name string) (result string, err error) {
 func (m mockAD) GetDisabledUsers() ([]string, error) {
 	res := m.Called()
 	return res.Get(0).([]string), res.Error(1)
+}
+
+func (m mockAD) SetUserPassword(user string, password string) (err error) {
+	return m.Called(user, password).Error(0)
 }

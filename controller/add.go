@@ -40,5 +40,5 @@ func CreateUser(user *AddData) error {
 	if len(user.Password) < 1 {
 		return errors.New("Password is not provided")
 	}
-	return logic.CreateUser(logic.UserInfo{Name: user.Name, DisplayName: user.DisplayName, Enabled: user.Enabled})
+	return logic.CreateUser(logic.UserInfo{Name: user.Name, DisplayName: user.DisplayName, Password: user.Password, Enabled: user.Enabled})
 }
