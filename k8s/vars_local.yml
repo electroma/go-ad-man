@@ -1,8 +1,9 @@
 image:
-  pullPolicy: IfNotPresent
   repository: builditdigital/go-ad-man
 service:
   hostName: ad-man.kube.local
 app:
-  dcUrl: ad-dc-samba-ad-dc
+  dcUrl: ad-dc-samba-ad-dc.default.svc.cluster.local
   baseDn: "CN=Users,DC=corp,DC=riglet,DC=io"
+samba-ad-dc:
+  enabled: false

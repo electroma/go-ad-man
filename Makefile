@@ -2,7 +2,7 @@ all: push
 
 BUILDTAGS=
 
-RELEASE?=0.1.2
+RELEASE?=0.1.3
 PREFIX?=builditdigital/go-ad-man
 GOOS?=linux
 
@@ -39,7 +39,7 @@ lint:
 
 test: fmt lint vet
 	@echo "+ $@"
-	@go test -v -race -tags "$(BUILDTAGS) cgo" $(shell go list ${PKG}/... | grep -v vendor)
+	go test -v -race -tags "$(BUILDTAGS) cgo" $(shell go list ${PKG}/... | grep -v vendor)
 
 cover:
 	@echo "+ $@"

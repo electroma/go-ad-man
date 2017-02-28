@@ -1,6 +1,7 @@
 service:
   hostName: ad-man.riglet
 app:
-  # Need to be updated for your cluster
-  dcUrl: "172.20.0.149"
+  dcUrl: "ad-dc-samba-ad-dc"
   baseDn: "CN=Users,DC=corp,DC=riglet,DC=io"
+samba-ad-dc:
+  enabled: false

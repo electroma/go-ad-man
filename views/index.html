@@ -4,13 +4,16 @@
         <th>Name</th>
         <th>Display Name</th>
         <th>Enabled</th>
+        <th>Admin</th>
         <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     {{ range $key, $user := .Users }}
     <tr>
-        <td>{{ $user.Name }}</td><td>{{ $user.DisplayName }}</td><td>{{ if $user.Enabled }} &#x2713; {{ end }}</td>
+        <td>{{ $user.Name }}</td><td>{{ $user.DisplayName }}</td>
+        <td>{{ if $user.Enabled }} &#x2713; {{ end }}</td>
+        <td>{{ if $user.Admin }} &#x2713; {{ end }}</td>
         <td><a id="del_{{ $user.Name }}" href="delete/{{ $user.Name }}" class="button-error pure-button">Delete</a></td>
     </tr>
     {{ end }}

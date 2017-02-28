@@ -6,7 +6,7 @@ import (
 	log "github.com/Sirupsen/logrus"
 )
 
-func ExampleWithRealAd() {
+func Example() {
 	const userName = "testUser123"
 
 	DCHost = "172.20.0.149"
@@ -43,21 +43,39 @@ func ExampleWithRealAd() {
 	}
 }
 
-func TestMockedAD(t *testing.T) {
+func TestListMockedAD(t *testing.T) {
 	ad := new(mockAD)
 	SetLibAd(ad)
+	SetAdmGroupName("TestAdm")
 
 	ad.On("GetUsers").Return([]string {"u1", "u2"}, nil)
 	ad.On("GetDisabledUsers").Return([]string {"u2"}, nil)
+	ad.On("GetUsersInGroup", "TestAdm", false).Return([]string {"u1"}, nil)
 	ad.On("GetUserDisplayName", "u1").Return("u u1", nil)
 	ad.On("GetUserDisplayName", "u2").Return("u u2", nil)
 
 	users, err := GetUsers()
 	ad.AssertExpectations(t)
 	assert.Equal(t, map[string]UserInfo {
-		"u1": UserInfo{Name: "u1", DisplayName:"u u1", Enabled: true},
+		"u1": UserInfo{Name: "u1", DisplayName:"u u1", Enabled: true, Admin: true},
 		"u2": UserInfo{Name: "u2", DisplayName:"u u2", Enabled: false},
 	}, users)
 	assert.Nil(t, err)
+}
 
+func TestCreateMockedAD(t *testing.T) {
+	ad := new(mockAD)
+	SetLibAd(ad)
+	SetAdmGroupName("TestAdm1")
+
+	ad.On("SearchBase").Return("hz")
+	ad.On("CreateUser", "u1", "hz", "u1").Return(nil)
+	ad.On("SetUserDisplayName", "u1", "u1 name").Return(nil)
+	ad.On("SetUserPassword", "u1", "pwd").Return( nil)
+	ad.On("EnableUser", "u1").Return(nil)
+	ad.On("GroupAddUser", "TestAdm1", "u1").Return(nil)
+
+	err := CreateUser(UserInfo{"u1", "u1 name", "pwd", true, true})
+	assert.Nil(t, err)
+	ad.AssertExpectations(t)
 }

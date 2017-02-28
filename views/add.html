@@ -3,6 +3,7 @@
     <label for="DisplayName">Display Name:</label><input id="DisplayName" name="DisplayName"  value="{{ .DisplayName }}" />
     <label for="Password">Password:</label><input id="Password" name="Password" type="password" />
     <label for="Enabled">Enable account:<input id="Enabled" name="Enabled" type="checkbox" {{ if .Enabled }}checked="true"{{ end }} /></label>
+    <label for="Admin">Admin account:<input id="Admin" name="Admin" type="checkbox" {{ if .Admin }}checked="true"{{ end }} /></label>
 
     <input id="create" type="submit" value="Create" class="pure-button pure-button-primary" />
     <input type="reset" value="Reset" class="pure-button" />
